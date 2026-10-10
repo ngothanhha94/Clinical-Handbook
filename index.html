@@ -10755,6 +10755,9 @@ const SEARCH_ALIASES = {
   'ngung tim':'acls',
   svt:'viem tac tinh mach nong',
   pts:'hoi chung sau huyet khoi',
+  mmse:'mini mental state sa sut tri tue nhan thuc alzheimer',
+  alzheimer:'mmse sa sut tri tue',
+  dementia:'mmse sa sut tri tue',
 
 };
 
@@ -12666,6 +12669,77 @@ function __nums(v, keys){ return keys.every(k => v[k] != null && !isNaN(v[k])); 
 function __r(x, d){ const m = Math.pow(10, d || 0); return Math.round(x * m) / m; }
 function __buildScalesData(){
   return [
+      {
+        id: "mmse",
+        title: "MMSE (Mini-Mental State Examination — Đánh giá nhận thức)",
+        subtitle: "Sàng lọc suy giảm nhận thức/sa sút trí tuệ (Alzheimer): 11 mục, tối đa 30 điểm. Diễn giải theo tuổi và học vấn.",
+        category: "than_kinh",
+        categoryName: "Thần kinh",
+        source: "Folstein MF, Folstein SE, McHugh PR. J Psychiatr Res 1975;12(3):189-198 (thang gốc); Tombaugh TN, McIntyre NJ. J Am Geriatr Soc 1992;40(9):922-935 (ngưỡng sàng lọc ≤23); Crum RM et al. JAMA 1993;269(18):2386-2391 (chuẩn theo tuổi và học vấn); Perneczky R et al. Am J Geriatr Psychiatry 2006;14(2):139-144 (phân giai đoạn theo điểm)",
+        criteria: [
+          {
+            name: "1. Định hướng thời gian (5đ)",
+            detail: "Năm, mùa, tháng, ngày trong tháng, thứ trong tuần — mỗi ý đúng 1 điểm",
+            options: [{ text: "Đúng 0/5 (0 điểm)", score: 0 }, { text: "Đúng 1/5 (1 điểm)", score: 1 }, { text: "Đúng 2/5 (2 điểm)", score: 2 }, { text: "Đúng 3/5 (3 điểm)", score: 3 }, { text: "Đúng 4/5 (4 điểm)", score: 4 }, { text: "Đúng 5/5 (5 điểm)", score: 5 }]
+          },
+          {
+            name: "2. Định hướng không gian (5đ)",
+            detail: "Nước, tỉnh/thành, quận/huyện, bệnh viện (nơi đang ở), tầng/khoa — mỗi ý đúng 1 điểm",
+            options: [{ text: "Đúng 0/5 (0 điểm)", score: 0 }, { text: "Đúng 1/5 (1 điểm)", score: 1 }, { text: "Đúng 2/5 (2 điểm)", score: 2 }, { text: "Đúng 3/5 (3 điểm)", score: 3 }, { text: "Đúng 4/5 (4 điểm)", score: 4 }, { text: "Đúng 5/5 (5 điểm)", score: 5 }]
+          },
+          {
+            name: "3. Ghi nhớ (3đ)",
+            detail: "Đọc 3 từ không liên quan (mỗi giây 1 từ), yêu cầu nhắc lại ngay — mỗi từ đúng 1 điểm",
+            options: [{ text: "Đúng 0/3 (0 điểm)", score: 0 }, { text: "Đúng 1/3 (1 điểm)", score: 1 }, { text: "Đúng 2/3 (2 điểm)", score: 2 }, { text: "Đúng 3/3 (3 điểm)", score: 3 }]
+          },
+          {
+            name: "4. Chú ý và tính nhẩm (5đ)",
+            detail: "Trừ liên tiếp 7 từ 100 (93, 86, 79, 72, 65) hoặc đánh vần ngược một từ 5 chữ cái — chọn cách cho điểm cao hơn, tối đa 5",
+            options: [{ text: "Đúng 0/5 (0 điểm)", score: 0 }, { text: "Đúng 1/5 (1 điểm)", score: 1 }, { text: "Đúng 2/5 (2 điểm)", score: 2 }, { text: "Đúng 3/5 (3 điểm)", score: 3 }, { text: "Đúng 4/5 (4 điểm)", score: 4 }, { text: "Đúng 5/5 (5 điểm)", score: 5 }]
+          },
+          {
+            name: "5. Nhớ lại (3đ)",
+            detail: "Nhắc lại 3 từ đã đọc ở mục 3 — mỗi từ đúng 1 điểm",
+            options: [{ text: "Đúng 0/3 (0 điểm)", score: 0 }, { text: "Đúng 1/3 (1 điểm)", score: 1 }, { text: "Đúng 2/3 (2 điểm)", score: 2 }, { text: "Đúng 3/3 (3 điểm)", score: 3 }]
+          },
+          {
+            name: "6. Gọi tên (2đ)",
+            detail: "Cho xem 2 vật (ví dụ bút, đồng hồ) và yêu cầu gọi tên — mỗi vật đúng 1 điểm",
+            options: [{ text: "Đúng 0/2 (0 điểm)", score: 0 }, { text: "Đúng 1/2 (1 điểm)", score: 1 }, { text: "Đúng 2/2 (2 điểm)", score: 2 }]
+          },
+          {
+            name: "7. Lặp lại câu (1đ)",
+            detail: "Lặp lại đúng một câu chuẩn (bản gốc: \"No ifs, ands, or buts\")",
+            options: [{ text: "Không lặp lại được (0 điểm)", score: 0 }, { text: "Lặp lại đúng (1 điểm)", score: 1 }]
+          },
+          {
+            name: "8. Thực hiện lệnh 3 bước (3đ)",
+            detail: "Ví dụ: cầm tờ giấy bằng tay phải, gấp làm đôi, đặt xuống sàn — mỗi bước đúng 1 điểm",
+            options: [{ text: "Đúng 0/3 (0 điểm)", score: 0 }, { text: "Đúng 1/3 (1 điểm)", score: 1 }, { text: "Đúng 2/3 (2 điểm)", score: 2 }, { text: "Đúng 3/3 (3 điểm)", score: 3 }]
+          },
+          {
+            name: "9. Đọc và làm theo (1đ)",
+            detail: "Đọc câu \"Nhắm mắt lại\" và làm theo",
+            options: [{ text: "Không làm được (0 điểm)", score: 0 }, { text: "Làm đúng (1 điểm)", score: 1 }]
+          },
+          {
+            name: "10. Viết câu (1đ)",
+            detail: "Tự viết một câu có chủ ngữ, vị ngữ và có nghĩa",
+            options: [{ text: "Không đạt (0 điểm)", score: 0 }, { text: "Đạt (1 điểm)", score: 1 }]
+          },
+          {
+            name: "11. Vẽ lại hình (1đ)",
+            detail: "Chép lại hình hai ngũ giác giao nhau (đủ 10 góc, phần giao tạo hình 4 cạnh)",
+            options: [{ text: "Không đạt (0 điểm)", score: 0 }, { text: "Đạt (1 điểm)", score: 1 }]
+          }
+        ],
+        evaluate: function(t) {
+          if (t >= 26) return { text: "26–30 điểm: không suy giảm hoặc ở vùng nghi ngờ (26–29). MMSE kém nhạy ở giai đoạn rất sớm — nếu người bệnh hoặc gia đình còn lo ngại, cân nhắc MoCA hoặc đánh giá nhận thức chuyên sâu.", color: "var(--success)" };
+          if (t >= 21) return { text: "21–25 điểm: gợi ý suy giảm nhận thức MỨC NHẸ. Ngưỡng sàng lọc thường dùng là ≤23; điểm 24–25 cần diễn giải theo tuổi và trình độ học vấn. Tìm nguyên nhân có thể đảo ngược (thiếu B12, suy giáp, trầm cảm, thuốc, mê sảng) và đánh giá thêm.", color: "var(--warning)" };
+          if (t >= 11) return { text: "11–20 điểm: suy giảm nhận thức MỨC TRUNG BÌNH. Đánh giá chức năng sinh hoạt hằng ngày (ADL/IADL) và hội chẩn chuyên khoa thần kinh/lão khoa.", color: "var(--danger)" };
+          return { text: "0–10 điểm: suy giảm nhận thức MỨC NẶNG. Hội chẩn chuyên khoa và lập kế hoạch chăm sóc, hỗ trợ người bệnh. (Các khoảng điểm giai đoạn được xác định ở bệnh nhân Alzheimer.)", color: "var(--danger)" };
+        }
+      },
       {
         id: "abcd2",
         title: "ABCD2 Score (Cơn thiếu máu cục bộ não thoáng qua - TIA)",
